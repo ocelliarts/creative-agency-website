@@ -54,6 +54,13 @@ img { display: block; max-width: 100%; }
 textarea, input, select { font-family: inherit; }
 
 /* ─────────────────────────────────────────────
+   IMAGE ERROR FALLBACK
+───────────────────────────────────────────── */
+img.img-banner, img.hero-bg, img.img-fill {
+  background: linear-gradient(135deg, #1a1816 0%, #2a2520 50%, #1a1816 100%);
+}
+
+/* ─────────────────────────────────────────────
    TYPE SCALE
 ───────────────────────────────────────────── */
 .t-hero {
@@ -334,6 +341,7 @@ textarea, input, select { font-family: inherit; }
   height: 55vh;
   object-fit: cover;
   display: block;
+  background: linear-gradient(135deg, #1a1816 0%, #2a2520 50%, #1a1816 100%);
 }
 @media (min-width: 768px) { .img-banner { height: 65vh; } }
 
@@ -341,6 +349,7 @@ textarea, input, select { font-family: inherit; }
   width: 100%;
   display: block;
   object-fit: cover;
+  background: linear-gradient(135deg, #1a1816 0%, #2a2520 50%, #1a1816 100%);
 }
 .img-hover {
   overflow: hidden;
@@ -623,6 +632,13 @@ select.field { appearance: none; cursor: pointer; }
   .footer-bottom { flex-direction: row; justify-content: space-between; align-items: center; }
 }
 
+/* ─────────────────────────────────────────────
+   CARD FORM VARIANT
+───────────────────────────────────────────── */
+.card--form {
+  padding: 3rem;
+}
+
 /* Hero */
 .hero {
   min-height: 100vh;
@@ -688,6 +704,74 @@ select.field { appearance: none; cursor: pointer; }
 /* Page intro band */
 .page-intro { padding: 5rem 0 0; }
 
+/* ─────────────────────────────────────────────
+   TABLET  (640 – 1023 px)
+───────────────────────────────────────────── */
+@media (min-width: 640px) and (max-width: 1023px) {
+  .section     { padding-top: 6rem; padding-bottom: 6rem; }
+  .section--sm { padding-top: 3rem; padding-bottom: 3rem; }
+  .hero        { padding: 9rem var(--pad-x) 6rem; }
+  .mt-2xl      { margin-top: 5rem; }
+  .mb-2xl      { margin-bottom: 5rem; }
+  .mt-xl       { margin-top: 3.5rem; }
+  .mb-xl       { margin-bottom: 3.5rem; }
+  .grid-2      { gap: 3.5rem; }
+  .grid-2--asym{ gap: 3.5rem; }
+  .img-banner  { height: 52vh; }
+  .card--form  { padding: 2.5rem; }
+  .service-item{ padding: 2rem; }
+  .footer-grid { gap: 3.5rem; }
+}
+
+/* ─────────────────────────────────────────────
+   MOBILE  (< 640 px)
+───────────────────────────────────────────── */
+@media (max-width: 639px) {
+  .section     { padding-top: 4.5rem; padding-bottom: 4.5rem; }
+  .section--sm { padding-top: 2.25rem; padding-bottom: 2.25rem; }
+  .mt-lg       { margin-top: 1.5rem; }
+  .mb-lg       { margin-bottom: 1.5rem; }
+  .mt-xl       { margin-top: 2.5rem; }
+  .mb-xl       { margin-bottom: 2.5rem; }
+  .mt-2xl      { margin-top: 3.5rem; }
+  .mb-2xl      { margin-bottom: 3.5rem; }
+
+  .hero        { padding: 7.5rem var(--pad-x) 5rem; min-height: 95vh; }
+  .hero-btns   { flex-direction: column; align-items: stretch; gap: 0.8rem; }
+  .hero-btns .btn { justify-content: center; }
+  .hero-sub    { margin: 1.75rem auto 2.5rem; }
+  .hero-kicker { margin-bottom: 1.75rem; }
+
+  .img-banner  { height: 40vh; min-height: 200px; }
+  .page-intro  { padding: 3.5rem 0 0; }
+  .pull-quote  { padding: 2.25rem 0; }
+
+  .m-line {
+    grid-template-columns: 1.75rem 1fr;
+    gap: 0.9rem;
+    padding: 1.6rem 0;
+    font-size: clamp(1.05rem, 3.8vw, 1.4rem);
+  }
+
+  .pillar {
+    grid-template-columns: 1.75rem 1fr;
+    gap: 0.9rem;
+    padding: 1.6rem 0;
+  }
+
+  .stat-cell   { padding: 1.75rem 1rem; }
+  .service-item{ padding: 1.6rem; }
+  .card--form  { padding: 1.6rem; }
+  .social-tile { padding: 1.3rem 1.4rem; gap: 1.1rem; }
+
+  .grid-2      { gap: 2.25rem; }
+  .grid-2--asym{ gap: 2.25rem; }
+
+  .site-footer { padding: 3.5rem 0; }
+  .footer-bottom{ margin-top: 2.75rem; }
+  .footer-grid { gap: 2.5rem; }
+}
+
 </style>
 </head>
 <body>
@@ -726,8 +810,10 @@ select.field { appearance: none; cursor: pointer; }
 <div id="page-home" class="page active">
   <section class="hero">
     <img class="hero-bg"
-      src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2400&q=85"
-      alt="Misty mountain lake at dawn" />
+      src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=2400&q=90"
+      alt="Abstract swirling colour — the language of emotion"
+      fetchpriority="high"
+      onerror="this.style.opacity='0'" />
     <div class="hero-veil"></div>
     <div class="hero-body">
       <div class="hero-kicker">
@@ -771,8 +857,9 @@ select.field { appearance: none; cursor: pointer; }
 
       <div class="reveal mb-xl img-hover" style="overflow:hidden;">
         <img class="img-fill"
-          src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=1800&q=85"
+          src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=1800&q=90"
           alt="Bioluminescent ocean waves at night"
+          loading="lazy"
           style="max-height: 600px; object-position: center;" />
         <p class="t-label t-label--muted mt-sm">In studio · 2025</p>
       </div>
@@ -817,8 +904,9 @@ select.field { appearance: none; cursor: pointer; }
 <!-- ════════ STUDIO ════════ -->
 <div id="page-studio" class="page">
   <img class="img-banner"
-    src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=2200&q=85"
-    alt="Minimalist studio interior — raking afternoon light" />
+    src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=2200&q=90"
+    alt="Minimalist studio interior — raking afternoon light"
+    loading="lazy" />
 
   <div class="page-intro">
     <div class="wrap">
@@ -867,8 +955,9 @@ select.field { appearance: none; cursor: pointer; }
 
       <div class="mt-2xl img-hover" style="overflow:hidden;">
         <img class="img-fill"
-          src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1800&q=85"
+          src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1800&q=90"
           alt="Hands shaping clay — the practice of making"
+          loading="lazy"
           style="max-height: 580px; object-position: center;" />
       </div>
 
@@ -879,8 +968,9 @@ select.field { appearance: none; cursor: pointer; }
 <!-- ════════ VISION ════════ -->
 <div id="page-vision" class="page">
   <img class="img-banner"
-    src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=2200&q=85"
-    alt="Chapel interior — a single beam of light through concrete" />
+    src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=2200&q=90"
+    alt="Chapel interior — a single beam of light through concrete"
+    loading="lazy" />
 
   <div class="page-intro">
     <div class="wrap">
@@ -894,13 +984,6 @@ select.field { appearance: none; cursor: pointer; }
 
   <section class="section section--sm" style="padding-top: 3.5rem;">
     <div class="wrap">
-
-      <div class="img-hover mb-2xl" style="overflow:hidden;">
-        <img class="img-fill"
-          src="https://images.unsplash.com/photo-1557800636633-e3acbb6e4a91?auto=format&fit=crop&w=1800&q=85"
-          alt="Fluid colour dynamics — emotional in motion"
-          style="max-height: 520px; object-position: center;" />
-      </div>
 
       <div>
         <div class="pillar">
@@ -940,8 +1023,9 @@ select.field { appearance: none; cursor: pointer; }
 <!-- ════════ DIALOGUE ════════ -->
 <div id="page-dialogue" class="page">
   <img class="img-banner"
-    src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=2200&q=85"
-    alt="Two people in warm conversation" />
+    src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=2200&q=90"
+    alt="Two people in warm conversation"
+    loading="lazy" />
 
   <div class="page-intro">
     <div class="wrap">
@@ -975,7 +1059,7 @@ select.field { appearance: none; cursor: pointer; }
           </div>
         </div>
 
-        <div class="card" style="padding:3rem;">
+        <div class="card card--form">
           <p class="t-label t-label--amber mb-lg">Send a message</p>
           <form id="contactForm" class="form-col">
             <input type="text"  placeholder="Your name"     class="field" required />
@@ -989,8 +1073,9 @@ select.field { appearance: none; cursor: pointer; }
 
       <div class="img-hover" style="overflow:hidden;">
         <img class="img-fill"
-          src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1800&q=85"
+          src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1800&q=90"
           alt="Hand writing — the act of articulation"
+          loading="lazy"
           style="max-height: 460px; object-position: center top;" />
       </div>
 
@@ -1001,8 +1086,9 @@ select.field { appearance: none; cursor: pointer; }
 <!-- ════════ MANIFESTO ════════ -->
 <div id="page-manifesto" class="page">
   <img class="img-banner"
-    src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2200&q=85"
-    alt="Lone figure in a vast golden landscape" />
+    src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2200&q=90"
+    alt="Lone figure in a vast golden landscape"
+    loading="lazy" />
 
   <div class="page-intro">
     <div class="wrap">
@@ -1013,13 +1099,6 @@ select.field { appearance: none; cursor: pointer; }
 
   <section class="section section--sm" style="padding-top: 3.5rem;">
     <div class="wrap">
-
-      <div class="img-hover mb-xl" style="overflow:hidden;">
-        <img class="img-fill"
-          src="https://images.unsplash.com/photo-1517908827702-9ed7d4290929?auto=format&fit=crop&w=1800&q=85"
-          alt="Smoke rising in raking studio light"
-          style="max-height: 440px; object-position: center;" />
-      </div>
 
       <div style="max-width: 820px;">
         <div class="m-line"><span class="m-num">01</span><span>Emotion is the ultimate interface. We design for the gut, the heart, the quiet pause between stimulus and response.</span></div>
@@ -1042,8 +1121,9 @@ select.field { appearance: none; cursor: pointer; }
 <!-- ════════ PROJECT ════════ -->
 <div id="page-project" class="page">
   <img class="img-banner"
-    src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2200&q=85"
-    alt="Architect's drafting table with blueprints in morning light" />
+    src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2200&q=90"
+    alt="Architect's drafting table with blueprints in morning light"
+    loading="lazy" />
 
   <div class="page-intro">
     <div class="wrap">
@@ -1058,12 +1138,13 @@ select.field { appearance: none; cursor: pointer; }
       <div class="grid-2">
         <div class="img-hover" style="overflow:hidden; align-self:start;">
           <img class="img-fill"
-            src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=85"
+            src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=90"
             alt="Designer's hand with fine liner — the beginning of an idea"
+            loading="lazy"
             style="object-position:center top;" />
         </div>
 
-        <div class="card" style="padding:3rem; align-self:start;">
+        <div class="card card--form" style="align-self:start;">
           <p class="t-label t-label--amber mb-lg">Project brief</p>
           <form id="projectForm" class="form-col">
             <input type="text"  placeholder="Full name *"       class="field" required />
@@ -1089,8 +1170,9 @@ select.field { appearance: none; cursor: pointer; }
 <!-- ════════ SOCIAL ════════ -->
 <div id="page-social" class="page">
   <img class="img-banner"
-    src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=2200&q=85"
-    alt="Aerial Kyoto rooftops at golden hour" />
+    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=2200&q=90"
+    alt="Creative team gathered around a table — sharing ideas and process"
+    loading="lazy" />
 
   <div class="page-intro">
     <div class="wrap">
@@ -1238,9 +1320,9 @@ select.field { appearance: none; cursor: pointer; }
   if (cForm) {
     cForm.addEventListener('submit', function(e) {
       e.preventDefault();
-      var name = cForm.querySelector('input[type=text]').value;
+      var name  = cForm.querySelector('input[type=text]').value;
       var email = cForm.querySelector('input[type=email]').value;
-      var msg = cForm.querySelector('textarea').value;
+      var msg   = cForm.querySelector('textarea').value;
       var s = encodeURIComponent('Enquiry from ' + (name || 'visitor'));
       var b = encodeURIComponent('Name: ' + name + '\r\nEmail: ' + email + '\r\n\r\n' + msg);
       window.location.href = 'mailto:ocelliarts@outlook.com?subject=' + s + '&body=' + b;
@@ -1255,20 +1337,32 @@ select.field { appearance: none; cursor: pointer; }
   if (pForm) {
     pForm.addEventListener('submit', function(e) {
       e.preventDefault();
+      var fields  = pForm.querySelectorAll('input[type=text]');
+      var name    = fields[0] ? fields[0].value : '';
+      var company = fields[1] ? fields[1].value : '';
+      var email   = pForm.querySelector('input[type=email]').value;
+      var type    = pForm.querySelector('select').value;
+      var vision  = pForm.querySelector('textarea').value;
+      var s = encodeURIComponent('Project brief from ' + (name || 'visitor'));
+      var b = encodeURIComponent(
+        'Name: ' + name +
+        '\r\nEmail: ' + email +
+        '\r\nCompany: ' + company +
+        '\r\nProject type: ' + type +
+        '\r\n\r\nVision:\r\n' + vision
+      );
+      window.location.href = 'mailto:ocelliarts@outlook.com?subject=' + s + '&body=' + b;
       var btn = pForm.querySelector('button[type=submit]');
       var orig = btn.textContent;
-      btn.textContent = 'Submitted — we will be in touch.';
-      btn.disabled = true;
-      setTimeout(function() { btn.textContent = orig; btn.disabled = false; pForm.reset(); }, 4000);
+      btn.textContent = 'Opening mail app...';
+      setTimeout(function() { btn.textContent = orig; }, 3000);
     });
   }
 
   bindNav();
-  updateHeader();
-  initReveal();
-  updateNav('home');
+  showPage('home');
 
-}());
+})();
 </script>
 </body>
 </html>
