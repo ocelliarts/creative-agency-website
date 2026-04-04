@@ -1,23 +1,1108 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>Creative Agency</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<title>Ocelli Arts — Emotional Design Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ===================== RESET ===================== */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* ===================== TOKENS ===================== */
+:root {
+  --accent:        #E5A94D;
+  --accent-dim:    rgba(229,169,77,0.18);
+  --accent-line:   rgba(229,169,77,0.45);
+  --white:         #F5F2EE;
+  --muted:         #9a9490;
+  --muted-dark:    #6b6560;
+  --surface:       rgba(255,255,255,0.04);
+  --border:        rgba(255,255,255,0.08);
+  --bg:            #080806;
+
+  /* spacing scale */
+  --sp-xs:  0.5rem;
+  --sp-sm:  1rem;
+  --sp-md:  1.5rem;
+  --sp-lg:  2.5rem;
+  --sp-xl:  4rem;
+  --sp-2xl: 6rem;
+  --sp-3xl: 9rem;
+
+  /* layout */
+  --max-w: 1200px;
+  --pad-x: 2rem;
+
+  /* type */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+@media (min-width: 768px) {
+  :root {
+    --pad-x: 3.5rem;
+  }
+}
+@media (min-width: 1100px) {
+  :root {
+    --pad-x: 5rem;
+  }
+}
+
+/* ===================== BASE ===================== */
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; cursor: pointer; }
+button { cursor: pointer; font-family: inherit; }
+img { display: block; max-width: 100%; }
+textarea, input, select { font-family: inherit; }
+
+/* ===================== TYPOGRAPHY ===================== */
+.display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(3.8rem, 10vw, 7rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+}
+.display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.3;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+}
+
+.body-lg {
+  font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+  line-height: 1.75;
+  color: #c8c4be;
+}
+.body-sm {
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.caption-text {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--muted-dark);
+}
+
+/* ===================== LAYOUT UTILITIES ===================== */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+}
+
+.section {
+  padding-top: var(--sp-3xl);
+  padding-bottom: var(--sp-3xl);
+}
+
+.section-sm {
+  padding-top: var(--sp-xl);
+  padding-bottom: var(--sp-xl);
+}
+
+/* Two-column grid */
+.col-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--sp-xl);
+}
+@media (min-width: 768px) {
+  .col-2 {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--sp-2xl);
+  }
+}
+
+/* Four-column grid */
+.col-4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--sp-md);
+}
+@media (min-width: 768px) {
+  .col-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--sp-lg);
+  }
+}
+
+/* Flex row utility */
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-md);
+}
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-md);
+}
+
+/* Text alignment helpers */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Stack helpers */
+.stack-xs > * + * { margin-top: var(--sp-xs); }
+.stack-sm > * + * { margin-top: var(--sp-sm); }
+.stack-md > * + * { margin-top: var(--sp-md); }
+.stack-lg > * + * { margin-top: var(--sp-lg); }
+.stack-xl > * + * { margin-top: var(--sp-xl); }
+
+/* Margin helpers */
+.mt-xs { margin-top: var(--sp-xs); }
+.mt-sm { margin-top: var(--sp-sm); }
+.mt-md { margin-top: var(--sp-md); }
+.mt-lg { margin-top: var(--sp-lg); }
+.mt-xl { margin-top: var(--sp-xl); }
+.mt-2xl { margin-top: var(--sp-2xl); }
+
+/* ===================== PAGE SYSTEM ===================== */
+.page {
+  display: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.page.active-page {
+  display: block;
+  opacity: 1;
+}
+
+/* ===================== HEADER ===================== */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 100;
+  padding: 1.6rem 0;
+  /* always-on dark gradient so text is readable over any photo */
+  background: linear-gradient(to bottom, rgba(5,5,4,0.72) 0%, rgba(5,5,4,0) 100%);
+  transition: background 0.35s ease, border-color 0.25s, backdrop-filter 0.35s;
+  border-bottom: 1px solid transparent;
+}
+.site-header.scrolled {
+  background: rgba(6,6,5,0.88);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom-color: var(--border);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--white);
+  line-height: 1;
+  text-shadow: 0 1px 12px rgba(0,0,0,0.7);
+}
+.logo em {
+  font-style: normal;
+  font-weight: 300;
+  color: rgba(245,242,238,0.7);
+}
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.75rem;
+}
+.nav-links a {
+  font-size: 1.1rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: rgba(245,242,238,0.85);
+  transition: color 0.2s;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+}
+.nav-links a:hover { color: var(--white); }
+
+@media (max-width: 767px) {
+  .nav-links { display: none; }
+  .site-header { padding: 1.25rem 0; }
+}
+
+/* ===================== BUTTONS ===================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.8rem 2rem;
+  border-radius: 3rem;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+.btn-ghost {
+  border: 1px solid rgba(255,255,255,0.2);
+  color: var(--white);
+  background: transparent;
+}
+.btn-ghost:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-dim);
+}
+.btn-solid {
+  background: var(--accent);
+  color: #0a0906;
+  border: none;
+}
+.btn-solid:hover {
+  background: #f0b85a;
+  transform: translateY(-1px);
+}
+.btn-full { width: 100%; justify-content: center; }
+
+/* ===================== IMAGES ===================== */
+.img-cinematic {
+  width: 100%;
+  border-radius: 0;
+  object-fit: cover;
+  display: block;
+  box-shadow: 0 24px 48px -12px rgba(0,0,0,0.5);
+  transition: transform 0.5s ease, box-shadow 0.4s ease;
+}
+.img-cinematic:hover {
+  transform: scale(1.012);
+  box-shadow: 0 32px 56px -10px rgba(0,0,0,0.7);
+}
+
+.img-banner {
+  width: 100%;
+  height: 52vh;
+  object-fit: cover;
+  display: block;
+  border-radius: 0;
+}
+@media (min-width: 768px) {
+  .img-banner {
+    height: 62vh;
+    border-radius: 0;
+  }
+}
+
+/* ===================== CARDS ===================== */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: var(--sp-lg);
+  transition: border-color 0.25s;
+}
+.card:hover { border-color: var(--accent-line); }
+
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: var(--sp-lg) var(--sp-md);
+  text-align: center;
+  transition: border-color 0.25s, transform 0.25s;
+}
+.stat-card:hover {
+  border-color: var(--accent-line);
+  transform: translateY(-3px);
+}
+.stat-number {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #fff 30%, var(--accent));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: var(--sp-xs);
+}
+
+/* ===================== FORMS ===================== */
+.input {
+  width: 100%;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0.75rem;
+  padding: 0.9rem 1.25rem;
+  color: var(--white);
+  font-size: 0.9rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+.input::placeholder { color: var(--muted-dark); }
+.input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255,255,255,0.07);
+}
+select.input { appearance: none; cursor: pointer; }
+.form-stack > * + * { margin-top: var(--sp-sm); }
+
+/* ===================== DIVIDERS ===================== */
+.rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 0;
+}
+
+/* ===================== ACCENT LINE ===================== */
+.accent-border-left {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.25rem;
+}
+
+/* ===================== MANIFESTO LINE ===================== */
+.manifesto-line {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.2rem);
+  font-weight: 300;
+  line-height: 1.4;
+  color: #ddd8d0;
+  border-left: 2px solid var(--accent);
+  padding: var(--sp-sm) 0 var(--sp-sm) var(--sp-lg);
+}
+
+/* ===================== SCROLL REVEAL ===================== */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.85s cubic-bezier(0.2,0.8,0.4,1), transform 0.85s ease;
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ===================== FOOTER ===================== */
+.site-footer {
+  padding: var(--sp-xl) 0;
+  border-top: 1px solid var(--border);
+}
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-md);
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+.footer-links {
+  display: flex;
+  gap: var(--sp-lg);
+}
+.footer-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  color: var(--muted-dark);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--white); }
+
+/* ===================== HERO ===================== */
+.hero-section {
+  min-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: var(--sp-3xl) var(--pad-x) var(--sp-2xl);
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.18;
+  filter: brightness(0.55) blur(3px);
+  z-index: 0;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  width: 100%;
+}
+.hero-title-italic {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: var(--accent);
+}
+
+/* ===================== HOME PAGE — SOCIAL PROOF TICKER ===================== */
+.ticker-strip {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: var(--sp-sm) 0;
+  background: rgba(255,255,255,0.015);
+}
+.ticker-inner {
+  display: flex;
+  gap: 4rem;
+  animation: ticker 28s linear infinite;
+  white-space: nowrap;
+}
+.ticker-inner span {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+  flex-shrink: 0;
+}
+.ticker-inner .dot {
+  color: var(--accent);
+  font-size: 0.5rem;
+  vertical-align: middle;
+}
+@keyframes ticker {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ===================== VISION PILLARS ===================== */
+.pillar {
+  padding: var(--sp-lg) 0;
+  border-top: 1px solid var(--border);
+}
+.pillar-num {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--muted-dark);
+  letter-spacing: 0.1em;
+  margin-bottom: var(--sp-xs);
+}
+.pillar h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 400;
+  margin-bottom: var(--sp-xs);
+}
+
+/* ===================== CONTACT SECTION ===================== */
+.contact-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: var(--sp-sm) 0;
+  border-bottom: 1px solid var(--border);
+}
+.contact-info-item:last-child { border-bottom: none; }
+.contact-info-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted-dark);
+}
+.contact-info-value {
+  font-size: 0.95rem;
+  color: var(--white);
+}
+
+/* ===================== SOCIAL CARDS ===================== */
+.social-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-sm);
+  padding: var(--sp-xl) var(--sp-lg);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  transition: border-color 0.25s, background 0.25s;
+  text-decoration: none;
+}
+.social-card:hover {
+  border-color: var(--accent-line);
+  background: var(--accent-dim);
+}
+.social-icon {
+  font-size: 2.25rem;
+  line-height: 1;
+}
+
+
+</style>
 </head>
 <body>
-    <header>
-        <h1>Welcome to Our Creative Agency</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Our Services</h2>
-            <p>We offer a range of services to help your business grow.</p>
-        </section>
-    </main>
-    <footer>
-        <p>&copy; 2026 Creative Agency</p>
-    </footer>
+<!-- ==================== HEADER ==================== -->
+<header class="site-header" id="siteHeader">
+  <div class="container">
+    <div class="header-inner">
+      <a href="#" id="logoLink" class="logo">Ocelli <em>Arts LLP</em></a>
+      <nav class="nav-links">
+        <a href="#" data-nav="studio">Studio</a>
+        <a href="#" data-nav="vision">Vision</a>
+        <a href="#" data-nav="dialogue">Dialogue</a>
+        <a href="#" data-nav="manifesto">Manifesto</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<!-- ==================== MAIN ==================== -->
+<main id="app-root">
+
+  <!-- ==================== HOME ==================== -->
+  <div id="page-home" class="page active-page">
+
+    <!-- Hero -->
+    <section class="hero-section">
+      <img class="hero-bg" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?auto=format&fit=crop&w=2000&q=80" alt="misty mountain lake at dawn" />
+      <div class="hero-content stack-lg">
+        <p class="eyebrow">Emotional Design Studio · Kolkata</p>
+        <h1 class="display-xl">
+          We design<br>
+          <span class="hero-title-italic">emotion.</span>
+        </h1>
+        <p class="body-lg" style="max-width: 520px; margin: 0 auto;">
+          A multidisciplinary atelier crafting brand identities, spatial narratives, and digital experiences that move people.
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+          <button data-nav="project" class="btn btn-solid page-trigger">Start a project</button>
+          <button data-nav="manifesto" class="btn btn-ghost page-trigger">Read manifesto →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ticker -->
+    <div class="ticker-strip">
+      <div class="ticker-inner">
+        <span>Visual identity</span><span class="dot">●</span>
+        <span>Spatial installations</span><span class="dot">●</span>
+        <span>Digital experiences</span><span class="dot">●</span>
+        <span>D&AD Wood Pencil</span><span class="dot">●</span>
+        <span>Red Dot Award</span><span class="dot">●</span>
+        <span>30+ global brands</span><span class="dot">●</span>
+        <span>8 countries</span><span class="dot">●</span>
+        <span>Founded 2020</span><span class="dot">●</span>
+        <!-- duplicate for infinite loop -->
+        <span>Visual identity</span><span class="dot">●</span>
+        <span>Spatial installations</span><span class="dot">●</span>
+        <span>Digital experiences</span><span class="dot">●</span>
+        <span>D&AD Wood Pencil</span><span class="dot">●</span>
+        <span>Red Dot Award</span><span class="dot">●</span>
+        <span>30+ global brands</span><span class="dot">●</span>
+        <span>8 countries</span><span class="dot">●</span>
+        <span>Founded 2020</span><span class="dot">●</span>
+      </div>
+    </div>
+
+    <!-- Narrative section -->
+    <section class="section">
+      <div class="container">
+
+        <!-- Block 1: Philosophy -->
+        <div class="reveal" style="max-width: 760px; margin-bottom: var(--sp-3xl);">
+          <p class="eyebrow" style="margin-bottom: var(--sp-sm);">01 — Sensory philosophy</p>
+          <p class="body-lg">
+            Design is not decoration. It's the quiet bridge between a brand and the human heart. We strip away the unnecessary until only feeling remains.
+          </p>
+        </div>
+
+        <!-- Block 2: Cinematic image -->
+        <div class="reveal" style="margin-bottom: var(--sp-3xl);">
+          <img class="img-cinematic" src="https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?auto=format&fit=crop&w=1600&q=80" alt="bioluminescent ocean waves at night" />
+          <p class="caption-text text-center mt-sm">Stillness in motion · 2025</p>
+        </div>
+
+        <!-- Block 3: Manifesto quote + cards -->
+        <div class="reveal" style="margin-bottom: var(--sp-3xl);">
+          <div class="manifesto-line" style="margin-bottom: var(--sp-xl);">
+            "Every curve, every silence, every texture — a frequency that moves people."
+          </div>
+          <div class="col-2">
+            <div class="card">
+              <p class="eyebrow" style="margin-bottom: var(--sp-sm);">Sensory identity</p>
+              <p class="body-sm">Beyond visual — sound, tactility, and spatial memory become brand language.</p>
+            </div>
+            <div class="card">
+              <p class="eyebrow" style="margin-bottom: var(--sp-sm);">Emotional durability</p>
+              <p class="body-sm">Work that ages with grace, fostering long-term relationships between brands and people.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Block 4: CTA -->
+        <div class="reveal text-center">
+          <button data-nav="project" class="btn btn-solid page-trigger">Start a project →</button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Home mini footer -->
+    <div style="padding: var(--sp-lg) 0; border-top: 1px solid var(--border);">
+      <div class="container">
+        <p class="caption-text text-center">Ocelli Arts LLP — design as emotional architecture</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STUDIO ==================== -->
+  <div id="page-studio" class="page">
+    <img class="img-banner" src="https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=2000&q=80" alt="minimalist studio interior with raking afternoon light" />
+
+    <section class="section">
+      <div class="container">
+
+        <!-- Intro -->
+        <div class="col-2" style="margin-bottom: var(--sp-2xl);">
+          <div class="stack-md">
+            <h1 class="display-lg">Studio<span style="color: var(--accent);">.</span></h1>
+            <p class="body-lg">
+              Founded in 2020, Ocelli Arts LLP exists at the intersection of emotional design and future craft. A multidisciplinary collective of designers, strategists, and artists driven by poetic functionality.
+            </p>
+            <p class="body-sm">
+              Our atelier works across identities, installations, and digital ecosystems — always with human feeling at its core.
+            </p>
+          </div>
+          <div class="stack-lg" style="padding-top: 0.5rem;">
+            <div class="accent-border-left">
+              <p style="font-weight: 500; margin-bottom: 0.2rem;">📍 London / Tokyo</p>
+              <p class="body-sm">Shoreditch · Shibuya</p>
+            </div>
+            <div class="accent-border-left">
+              <p style="font-weight: 500; margin-bottom: 0.2rem;">🏆 Accolades</p>
+              <p class="body-sm">D&AD Wood Pencil · Red Dot</p>
+            </div>
+            <div class="accent-border-left">
+              <p style="font-weight: 500; margin-bottom: 0.2rem;">🤝 12 dreamers</p>
+              <p class="body-sm">Design is our native tongue.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="col-4" style="margin-bottom: var(--sp-2xl);">
+          <div class="stat-card">
+            <div class="stat-number">30+</div>
+            <div class="stat-label">Global brands</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Countries</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">∞</div>
+            <div class="stat-label">Emotional impact</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number">100%</div>
+            <div class="stat-label">Human-centered</div>
+          </div>
+        </div>
+
+        <!-- Studio image -->
+        <img class="img-cinematic" src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?auto=format&fit=crop&w=1600&q=80" alt="hands shaping clay, warm studio light" />
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== VISION ==================== -->
+  <div id="page-vision" class="page">
+    <img class="img-banner" src="https://images.unsplash.com/photo-1519999482648-25049ddd37b1?auto=format&fit=crop&w=2000&q=80" alt="concrete chapel interior with single dramatic light beam" />
+
+    <section class="section">
+      <div class="container">
+
+        <div class="text-center stack-md" style="max-width: 680px; margin: 0 auto var(--sp-2xl);">
+          <h1 class="display-lg">Vision<span style="color: var(--accent);">.</span></h1>
+          <p class="display-md" style="font-style: italic; color: #c8c4be; font-family: var(--font-display);">"Design is a bridge between human sensation and meaning."</p>
+        </div>
+
+        <img class="img-cinematic" style="margin-bottom: var(--sp-2xl);"
+          src="https://images.unsplash.com/photo-1557800636633-e3acbb6e4a91?auto=format&fit=crop&w=1600&q=80"
+          alt="colorful fluid dynamics, emotional motion" />
+
+        <!-- Pillars -->
+        <div>
+          <div class="pillar">
+            <p class="pillar-num">01</p>
+            <h3>Emotional durability</h3>
+            <p class="body-sm" style="max-width: 480px;">We create work that ages with grace, fostering long-term relationships between brands and the people they serve.</p>
+          </div>
+          <div class="pillar">
+            <p class="pillar-num">02</p>
+            <h3>Radical inclusion</h3>
+            <p class="body-sm" style="max-width: 480px;">Sensory experiences for all bodies and minds — accessible, poetic, and genuinely human.</p>
+          </div>
+          <div class="pillar">
+            <p class="pillar-num">03</p>
+            <h3>Living identities</h3>
+            <p class="body-sm" style="max-width: 480px;">Visual systems that breathe and evolve with culture, never static, always alive.</p>
+          </div>
+          <div class="pillar">
+            <p class="pillar-num">04</p>
+            <h3>Craft + code</h3>
+            <p class="body-sm" style="max-width: 480px;">Analog soul meets digital fluency. We refuse to choose between beauty and function.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== DIALOGUE ==================== -->
+  <div id="page-dialogue" class="page">
+    <img class="img-banner" src="https://images.unsplash.com/photo-1528605248644-14dd04022da1?auto=format&fit=crop&w=2000&q=80" alt="hands collaborating, creative dialogue" />
+
+    <section class="section">
+      <div class="container">
+
+        <h1 class="display-lg" style="margin-bottom: var(--sp-2xl);">Dialogue<span style="color: var(--accent);">.</span></h1>
+
+        <div class="col-2">
+
+          <!-- Left: info -->
+          <div class="stack-xl">
+            <p class="body-lg">Let's shape something resonant. Whether it's a brand identity, spatial narrative, or digital soul — we're here to listen.</p>
+
+            <div>
+              <div class="contact-info-item">
+                <span class="contact-info-label">General & creative inquiries</span>
+                <a href="mailto:ocelliarts@outlook.com" class="contact-info-value" style="color: var(--accent);">ocelliarts@outlook.com</a>
+              </div>
+              <div class="contact-info-item">
+                <span class="contact-info-label">Project collaborations</span>
+                <a href="mailto:ocelliarts@outlook.com" class="contact-info-value" style="color: var(--accent);">ocelliarts@outlook.com</a>
+              </div>
+              <div class="contact-info-item">
+                <span class="contact-info-label">Studio address</span>
+                <span class="contact-info-value">📍 Kolkata 700040, INDIA</span>
+                <span class="body-sm">Visits by appointment only</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: form -->
+          <div class="card" style="padding: var(--sp-xl);">
+            <p class="eyebrow" style="margin-bottom: var(--sp-lg);">Send a message</p>
+            <form id="contactForm" class="form-stack">
+              <input type="text" placeholder="Your name" class="input" required />
+              <input type="email" placeholder="Email address" class="input" required />
+              <textarea rows="4" placeholder="Tell us about your vision..." class="input" required></textarea>
+              <button type="submit" class="btn btn-ghost btn-full">Send message →</button>
+            </form>
+            <p class="caption-text text-center mt-md">We reply within 48 hours.</p>
+          </div>
+
+        </div>
+
+        <!-- Bottom image -->
+        <img class="img-cinematic mt-2xl"
+          src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=1600&q=80"
+          alt="warm creative meeting, hands sketching" />
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== MANIFESTO ==================== -->
+  <div id="page-manifesto" class="page">
+    <img class="img-banner" src="https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=2000&q=80" alt="silent poetic landscape" />
+
+    <section class="section">
+      <div class="container">
+
+        <h1 class="display-lg" style="margin-bottom: var(--sp-xl);">Manifesto<span style="color: var(--accent);">.</span></h1>
+
+        <img class="img-cinematic" style="margin-bottom: var(--sp-2xl);"
+          src="https://images.unsplash.com/photo-1517908827702-9ed7d4290929?auto=format&fit=crop&w=1600&q=80"
+          alt="abstract ink in water, emotional fluidity" />
+
+        <div style="max-width: 760px;">
+          <div class="manifesto-line" style="margin-bottom: var(--sp-xl);">
+            1. Emotion is the ultimate interface.<br>We design for the gut, the heart, the quiet pause.
+          </div>
+          <div class="manifesto-line" style="margin-bottom: var(--sp-xl);">
+            2. Every shape, every texture carries a frequency.<br>We tune into it.
+          </div>
+          <div class="manifesto-line" style="margin-bottom: var(--sp-xl);">
+            3. Minimalism is not silence — it's intention distilled.
+          </div>
+          <div class="manifesto-line" style="margin-bottom: var(--sp-xl);">
+            4. Technology must feel human.<br>Not cold, not alien — warmly inevitable.
+          </div>
+          <div class="manifesto-line" style="margin-bottom: var(--sp-xl);">
+            5. Stories live in the details.<br>We build worlds, not just assets.
+          </div>
+          <div class="manifesto-line" style="margin-bottom: var(--sp-xl);">
+            6. The best design disappears —<br>leaving only the feeling behind.
+          </div>
+          <div class="manifesto-line" style="margin-bottom: var(--sp-2xl);">
+            7. We refuse the ordinary.<br>The extraordinary is our baseline.
+          </div>
+
+          <div style="text-align: right; padding-top: var(--sp-lg); border-top: 1px solid var(--border);">
+            <p class="body-sm" style="font-style: italic; color: #aaa;">— Ocelli Arts LLP, founded on feeling.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== START PROJECT ==================== -->
+  <div id="page-project" class="page">
+    <img class="img-banner" src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2000&q=80" alt="creative workspace with blueprint" />
+
+    <section class="section">
+      <div class="container">
+
+        <div style="max-width: 640px; margin-bottom: var(--sp-2xl);">
+          <h1 class="display-lg" style="margin-bottom: var(--sp-md);">Start a project<span style="color: var(--accent);">.</span></h1>
+          <p class="body-lg">Let's co-create something unforgettable. Fill the brief — our team will reach out within 24 hours.</p>
+        </div>
+
+        <div class="col-2">
+
+          <!-- Left: image -->
+          <img class="img-cinematic"
+            src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1200&q=80"
+            alt="designer sketching, creative process"
+            style="height: 100%; object-fit: cover;" />
+
+          <!-- Right: form -->
+          <div class="card" style="padding: var(--sp-xl);">
+            <p class="eyebrow" style="margin-bottom: var(--sp-lg);">Project brief</p>
+            <form id="projectForm" class="form-stack">
+              <input type="text" placeholder="Full name *" class="input" required />
+              <input type="email" placeholder="Email address *" class="input" required />
+              <input type="text" placeholder="Company / brand" class="input" />
+              <select class="input">
+                <option value="">What service are you exploring?</option>
+                <option>Visual identity</option>
+                <option>Spatial / installation</option>
+                <option>Digital experience</option>
+              </select>
+              <textarea rows="5" placeholder="Describe your vision, emotional tone, and timeline..." class="input"></textarea>
+              <button type="submit" class="btn btn-solid btn-full">Submit inquiry →</button>
+            </form>
+            <p class="caption-text text-center mt-md">* Confidentiality fully assured.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ==================== SOCIAL ==================== -->
+  <div id="page-social" class="page">
+    <img class="img-banner" src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?auto=format&fit=crop&w=2000&q=80" alt="modern office atmosphere, warm tones" />
+
+    <section class="section">
+      <div class="container text-center">
+
+        <div style="max-width: 520px; margin: 0 auto var(--sp-2xl);">
+          <h1 class="display-lg" style="margin-bottom: var(--sp-md);">Digital spaces<span style="color: var(--accent);">.</span></h1>
+          <p class="body-lg">Follow our visual diary and studio life. We share process, ideas, and work that moves us.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-lg); max-width: 560px; margin: 0 auto;">
+          <a href="#" class="social-card">
+            <div class="social-icon">📸</div>
+            <div>
+              <p style="font-weight: 500; margin-bottom: 0.2rem;">Instagram</p>
+              <p class="body-sm">@ocelli_arts</p>
+            </div>
+          </a>
+          <a href="#" class="social-card">
+            <div class="social-icon">🔗</div>
+            <div>
+              <p style="font-weight: 500; margin-bottom: 0.2rem;">LinkedIn</p>
+              <p class="body-sm">Ocelli Arts LLP</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </section>
+  </div>
+
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-inner">
+      <p class="caption-text">© 2025 Ocelli Arts LLP — design as emotional architecture</p>
+      <div class="footer-links">
+        <a href="#" data-nav="social" class="page-trigger">Instagram</a>
+        <a href="#" data-nav="social" class="page-trigger">LinkedIn</a>
+        <a href="mailto:ocelliarts@outlook.com" class="page-trigger">ocelliarts@outlook.com</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ==================== JS ==================== -->
+<script>
+
+(function () {
+  var pages = {
+    home:      document.getElementById('page-home'),
+    studio:    document.getElementById('page-studio'),
+    vision:    document.getElementById('page-vision'),
+    dialogue:  document.getElementById('page-dialogue'),
+    manifesto: document.getElementById('page-manifesto'),
+    project:   document.getElementById('page-project'),
+    social:    document.getElementById('page-social')
+  };
+
+  function showPage(id) {
+    if (!pages[id]) return;
+    Object.keys(pages).forEach(function(k){ pages[k].classList.remove('active-page'); });
+    pages[id].classList.add('active-page');
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    updateHeader();
+    if (id === 'home') initReveal();
+  }
+
+  /* Scroll reveal */
+  var revealObs = null;
+  function initReveal() {
+    if (revealObs) revealObs.disconnect();
+    var els = document.querySelectorAll('#page-home .reveal');
+    if (!els.length) return;
+    revealObs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function(el) {
+      var r = el.getBoundingClientRect();
+      if (r.top < window.innerHeight - 80) el.classList.add('in');
+      else revealObs.observe(el);
+    });
+  }
+
+  /* Header scroll */
+  var header = document.getElementById('siteHeader');
+  function updateHeader() {
+    header.classList.toggle('scrolled', window.scrollY > 40);
+  }
+  window.addEventListener('scroll', updateHeader, { passive: true });
+  updateHeader();
+
+  /* Navigation */
+  function bindNav() {
+    document.querySelectorAll('[data-nav]').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = el.getAttribute('data-nav');
+        if (target && pages[target]) showPage(target);
+      });
+    });
+    var logo = document.getElementById('logoLink');
+    if (logo) {
+      logo.addEventListener('click', function(e) {
+        e.preventDefault();
+        showPage('home');
+      });
+    }
+  }
+  bindNav();
+
+  /* Contact form - mailto */
+  var contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var name    = contactForm.querySelector('input[type=text]').value;
+      var email   = contactForm.querySelector('input[type=email]').value;
+      var message = contactForm.querySelector('textarea').value;
+      var subject = encodeURIComponent('New enquiry from ' + (name || 'visitor'));
+      var body    = encodeURIComponent('Name: ' + name + '\r\nEmail: ' + email + '\r\n\r\n' + message);
+      window.location.href = 'mailto:ocelliarts@outlook.com?subject=' + subject + '&body=' + body;
+      var btn = contactForm.querySelector('button[type=submit]');
+      var orig = btn.textContent;
+      btn.textContent = 'Opening mail app...';
+      setTimeout(function(){ btn.textContent = orig; }, 3000);
+    });
+  }
+
+  /* Project form */
+  var projectForm = document.getElementById('projectForm');
+  if (projectForm) {
+    projectForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      var btn = projectForm.querySelector('button[type=submit]');
+      var orig = btn.textContent;
+      btn.textContent = 'Submitted!';
+      btn.disabled = true;
+      setTimeout(function(){ btn.textContent = orig; btn.disabled = false; projectForm.reset(); }, 3000);
+    });
+  }
+
+  initReveal();
+  showPage('home');
+}());
+
+</script>
 </body>
 </html>
